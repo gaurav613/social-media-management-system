@@ -67,10 +67,22 @@ def log_in():
     if user is None:
         return 'Login Failed'
     else:
-        return redirect('/')
-
+        return redirect('/userPage/'+username)
     mysql.connection.commit()
     cursor.close()
+
+# employee page
+@app.route('/userPage/<string:username>',methods = ['GET','POST'])
+def userPage(username):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT EmployeeID, Name FROM users NATURAL JOIN employees WHERE username = '"+username+"';")
+    emp = cursor.fetchone()
+    eid = str(emp['EmployeeID'])
+    name = str(emp['Name'])
+    cursor.execute("SELECT Content,Status FROM employees NATURAL JOIN liveposts NATURAL JOIN posts WHERE EmployeeID = "+eid+";")
+    posts = cursor.fetchall()
+    cursor.close()
+    return render_template('userPage.html',user=name,posts=posts)
 
 @app.route('/main_page', methods =['GET','POST'])
 def return_to_page():
