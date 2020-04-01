@@ -1,0 +1,23 @@
+{% extends 'base.html'%} {% block head%}
+<h1>Post History</h1> {% endblock %} {% block body %}
+<table>
+    <tr>
+        <th>Post</th>
+        <th>Status</th>
+    </tr>
+    {% for post in posts %}
+    <tr>
+        <td>
+            {{ post.Content }}
+        </td>
+        <td>
+            {{ post.Status }}
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+<form action='/main_page'>
+    <input type='submit' value='Go Back to main page'>
+</form>
+{% endblock %}
