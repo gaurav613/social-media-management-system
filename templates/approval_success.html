@@ -1,12 +1,10 @@
 {% extends 'base.html'%} {% block head%}
-<h1>Post successful</h1> {% endblock %} {% block body %}
+<h1>Post was approved</h1> {% endblock %} {% block body %}
 <div align='center'>
     <form action='/userPage/{{username}}'>
         <input type='submit' value='Go Back to user page'>
-    </form>
+    </form><br>
     <form action='/main_page'>
-        <input type='submit' value='Go Back to main page'>
-
-</div>
+        <input type='submit' value='Go Back to main page'></div>
 
 </form> {% endblock %}

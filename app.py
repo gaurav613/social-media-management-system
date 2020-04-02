@@ -23,13 +23,9 @@ def show_posts():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM posts")
     results = cur.fetchall()
-    # print(results)
-    # posts = []
-    # for i in range(len(results)):
-    #     posts.append(results[i]['Content'])
     cur.close()
     return render_template('post_history.html',posts=results)
-    # return len(results)
+    
 
 # move to the login page
 @app.route('/login_page', methods=['POST'])
@@ -82,10 +78,9 @@ def userPage(username):
     isApprover = str(emp['isApprover'])
     cursor.execute("SELECT Content,Status,EmployeeID FROM employees NATURAL JOIN liveposts NATURAL JOIN posts WHERE EmployeeID = "+eid+";")
     posts = cursor.fetchall()
-    
-    
+
     if(isApprover=='1'):
-        cursor.execute("SELECT Content FROM posts WHERE approved=0")
+        cursor.execute("SELECT Content,Name,postID FROM posts NATURAL JOIN liveposts NATURAL JOIN employees WHERE approved=0")
         unapproved_posts = cursor.fetchall()
         return render_template('approver_page.html',user=name,posts=posts,empID=eid,unapproved_posts=unapproved_posts)
     else:
@@ -104,14 +99,31 @@ def submitPost():
     
     cursor.execute("SELECT PostID from posts WHERE Content='"+postContent+"';")
     postID = str(cursor.fetchone()['PostID'])
-
     cursor.execute("INSERT INTO liveposts (SiteURL, PostID, EmployeeID) VALUES ('twitter.com',(%s),(%s))",(postID,EmployeeID))
     mysql.connection.commit()
+    
+
+    cursor.execute("SELECT username FROM users WHERE EmployeeID="+EmployeeID)
+    username = str(cursor.fetchone()['username'])
     cursor.close()
+    return render_template("post_success.html",username=username)
 
-    return render_template("post_success.html")
+# function to approve a post
+@app.route('/approvePost/<int:postID>/<string:user>',methods =['GET','POST'])
+def approvePost(postID,user):
+    cursor = mysql.connection.cursor()
+    pID = str(postID)
+    
+    cursor.execute("UPDATE posts SET approved=1,Status='Live' WHERE PostID="+pID+";")
+    mysql.connection.commit()
+
+    cursor.execute("SELECT username FROM users NATURAL JOIN employees WHERE Name='"+user+"';")
+    username = str(cursor.fetchone()['username'])
+    cursor.close()
+    return render_template("approval_success.html",username=username)
 
 
+# redirect to main page
 @app.route('/main_page', methods =['GET','POST'])
 def return_to_page():
     return redirect('/')

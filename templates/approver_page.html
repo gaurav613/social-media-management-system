@@ -5,45 +5,51 @@
     <h2>
         Your posts
     </h2>
-    <table class="pure-table">
-        <tr>
-            <th>Post</th>
-            <th>Status</th>
-        </tr>
+    {% if posts|length
+    < 1 %} <p>You haven't made any posts yet</p>
+        {%else%}
+        <table class="pure-table">
+            <tr>
+                <th>Post</th>
+                <th>Status</th>
+            </tr>
 
-        {%for post in posts%}
-        <tr>
-            <td>{{post.Content}}</td>
-            <td>{{post.Status}}</td>
-        </tr>
-        {%endfor%}
-    </table>
+            {%for post in posts%}
+            <tr>
+                <td>{{post.Content}}</td>
+                <td>{{post.Status}}</td>
+            </tr>
+            {%endfor%}
+        </table>
+        {%endif%}
 
-    <!-- <textarea name="postContent" id="post" form="postform" placeholder="Enter your post content here"></textarea> -->
-    <form action="/submitPost" id="postform" method='POST'>
-        <input type="text" name="postContent" placeholder="Enter Post Content"><br>
-        <input type="text" name="empID" placeholder="Enter Employee Number"><br>
-        <input type="submit" value='Send for approval'>
-    </form>
+        <!-- <textarea name="postContent" id="post" form="postform" placeholder="Enter your post content here"></textarea> -->
+        <form action="/submitPost" id="postform" method='POST'>
+            <input type="text" name="postContent" placeholder="Enter Post Content"><br>
+            <input type="text" name="empID" placeholder="Enter Employee Number"><br>
+            <input type="submit" value='Send for approval'>
+        </form>
 
-    <h3>
-        Posts that need your approval:
-    </h3>
-    <table class="pure-table">
-        <tr>
-            <th>Post</th>
-            <th>Approve</th>
-        </tr>
+        <h3>
+            Posts that need your approval:
+        </h3>
+        <table class="pure-table">
+            <tr>
+                <th>Post</th>
+                <th>Made By</th>
+                <th>Approve</th>
+            </tr>
 
-        {%for post in unapproved_posts%}
-        <tr>
-            <td>{{post.Content}}</td>
-            <td><a href="">Approve</a></td>
-        </tr>
-        {%endfor%}
-    </table>
-    <form action='/main_page'>
-        <input type='submit' value='Sign Out'>
-    </form>
+            {%for post in unapproved_posts%}
+            <tr>
+                <td>{{post.Content}}</td>
+                <td>{{post.Name}}</td>
+                <td><a href="/approvePost/{{post.postID}}/{{user}}">Approve</a></td>
+            </tr>
+            {%endfor%}
+        </table>
+        <form action='/main_page'>
+            <input type='submit' value='Sign Out'>
+        </form>
 </div>
 {% endblock %}
