@@ -79,10 +79,30 @@ def userPage(username):
     emp = cursor.fetchone()
     eid = str(emp['EmployeeID'])
     name = str(emp['Name'])
-    cursor.execute("SELECT Content,Status FROM employees NATURAL JOIN liveposts NATURAL JOIN posts WHERE EmployeeID = "+eid+";")
+    cursor.execute("SELECT Content,Status,EmployeeID FROM employees NATURAL JOIN liveposts NATURAL JOIN posts WHERE EmployeeID = "+eid+";")
     posts = cursor.fetchall()
     cursor.close()
-    return render_template('userPage.html',user=name,posts=posts)
+    return render_template('userPage.html',user=name,posts=posts,empID=eid)
+
+# make a post
+@app.route('/submitPost',methods = ['GET','POST'])
+def submitPost():
+    
+    cursor = mysql.connection.cursor()
+    EmployeeID = str(request.form['empID'])
+    postContent = str(request.form['postContent'])
+    cursor.execute("INSERT INTO posts (IsScheduled, Content, Status, approved) VALUES (0,'"+postContent+"','Draft',0);")
+    mysql.connection.commit()
+    
+    cursor.execute("SELECT PostID from posts WHERE Content='"+postContent+"';")
+    postID = str(cursor.fetchone()['PostID'])
+
+    cursor.execute("INSERT INTO liveposts (SiteURL, PostID, EmployeeID) VALUES ('twitter.com',(%s),(%s))",(postID,EmployeeID))
+    mysql.connection.commit()
+    cursor.close()
+
+    return render_template("post_success.html")
+
 
 @app.route('/main_page', methods =['GET','POST'])
 def return_to_page():

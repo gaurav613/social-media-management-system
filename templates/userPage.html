@@ -17,6 +17,14 @@
         </tr>
         {%endfor%}
     </table>
+
+    <!-- <textarea name="postContent" id="post" form="postform" placeholder="Enter your post content here"></textarea> -->
+    <form action="/submitPost" id="postform" method='POST'>
+        <input type="text" name="postContent" placeholder="Enter Post Content"><br>
+        <input type="text" name="empID" placeholder="Enter Employee Number"><br>
+        <input type="submit" value='Send for approval'>
+    </form>
+
     <form action='/main_page'></form>
     <input type='submit' value='Sign Out'>
     </form>
