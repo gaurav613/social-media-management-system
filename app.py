@@ -75,19 +75,27 @@ def log_in():
 @app.route('/userPage/<string:username>',methods = ['GET','POST'])
 def userPage(username):
     cursor = mysql.connection.cursor()
-    cursor.execute("SELECT EmployeeID, Name FROM users NATURAL JOIN employees WHERE username = '"+username+"';")
+    cursor.execute("SELECT EmployeeID, Name, isApprover FROM users NATURAL JOIN employees WHERE username = '"+username+"';")
     emp = cursor.fetchone()
     eid = str(emp['EmployeeID'])
     name = str(emp['Name'])
+    isApprover = str(emp['isApprover'])
     cursor.execute("SELECT Content,Status,EmployeeID FROM employees NATURAL JOIN liveposts NATURAL JOIN posts WHERE EmployeeID = "+eid+";")
     posts = cursor.fetchall()
+    
+    
+    if(isApprover=='1'):
+        cursor.execute("SELECT Content FROM posts WHERE approved=0")
+        unapproved_posts = cursor.fetchall()
+        return render_template('approver_page.html',user=name,posts=posts,empID=eid,unapproved_posts=unapproved_posts)
+    else:
+        return render_template('employee_page.html',user=name,posts=posts,empID=eid)
     cursor.close()
-    return render_template('userPage.html',user=name,posts=posts,empID=eid)
+
 
 # make a post
 @app.route('/submitPost',methods = ['GET','POST'])
 def submitPost():
-    
     cursor = mysql.connection.cursor()
     EmployeeID = str(request.form['empID'])
     postContent = str(request.form['postContent'])
