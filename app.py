@@ -3,6 +3,10 @@ from flask_mysqldb import MySQL
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
+
+# datetime object containing current date and time
+
+
 app = Flask(__name__)
 
 app.config['MYSQL_USER'] = 'root'
@@ -95,12 +99,19 @@ def submitPost():
     cursor = mysql.connection.cursor()
     EmployeeID = str(request.form['empID'])
     postContent = str(request.form['postContent'])
+    
     cursor.execute("INSERT INTO posts (IsScheduled, Content, Status, approved) VALUES (0,'"+postContent+"','Draft',0);")
     mysql.connection.commit()
+    now = datetime.now()
+ 
+    # print("now =", now)
+
+    # dd/mm/YY H:M:S
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     
     cursor.execute("SELECT PostID from posts WHERE Content='"+postContent+"';")
     postID = str(cursor.fetchone()['PostID'])
-    cursor.execute("INSERT INTO liveposts (SiteURL, PostID, EmployeeID) VALUES ('twitter.com',(%s),(%s))",(postID,EmployeeID))
+    cursor.execute("INSERT INTO liveposts (SiteURL, PostID, EmployeeID, PostUploadTime) VALUES ('twitter.com',(%s),(%s),(%s))",(postID,EmployeeID,dt_string))
     mysql.connection.commit()
     
 
