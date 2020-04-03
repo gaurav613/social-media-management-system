@@ -26,7 +26,6 @@ def show_posts():
     cur.close()
     return render_template('post_history.html',posts=results)
     
-
 # move to the login page
 @app.route('/login_page', methods=['POST'])
 def login_page():
@@ -58,10 +57,12 @@ def log_in():
     password = str(request.form["password"])
 
     cursor = mysql.connection.cursor()
-    cursor.execute("SELECT username FROM users WHERE username = '"+username+"';")
+    cursor.execute("SELECT username,password FROM users WHERE username = '"+username+"';")
     user = cursor.fetchone()
     if user is None:
-        return 'Login Failed'
+        return render_template('failure_page.html',message='User not found! Please try again')
+    elif(user['password']!=password):
+        return render_template('failure_page.html',message='Wrong password! Please try again')
     else:
         return redirect('/userPage/'+username)
     mysql.connection.commit()
