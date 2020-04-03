@@ -107,14 +107,13 @@ def submitPost():
     # print("now =", now)
 
     # dd/mm/YY H:M:S
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    dt_string = now.strftime("%Y/%m/%d %H:%M:%S")
     
     cursor.execute("SELECT PostID from posts WHERE Content='"+postContent+"';")
     postID = str(cursor.fetchone()['PostID'])
     cursor.execute("INSERT INTO liveposts (SiteURL, PostID, EmployeeID, PostUploadTime) VALUES ('twitter.com',(%s),(%s),(%s))",(postID,EmployeeID,dt_string))
     mysql.connection.commit()
     
-
     cursor.execute("SELECT username FROM users WHERE EmployeeID="+EmployeeID)
     username = str(cursor.fetchone()['username'])
     cursor.close()
