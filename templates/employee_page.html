@@ -1,13 +1,12 @@
 {% extends 'base.html'%} {% block head%}
 <h1 align="center">Welcome, {{user}}!</h1> {% endblock %} {% block body %}
 <div align="center">
-    <h2>
-        Your posts
-    </h2>
-    <table class="pure-table">
+    <h2> Your Posts </h2>
+
+    <table class="table table-striped">
         <tr>
-            <th>Post</th>
-            <th>Status</th>
+            <th scope="col">Post</th>
+            <th scope="col">Status</th>
         </tr>
 
         {%for post in posts%}
@@ -18,15 +17,25 @@
         {%endfor%}
     </table>
 
-    <!-- <textarea name="postContent" id="post" form="postform" placeholder="Enter your post content here"></textarea> -->
-    <form action="/submitPost" id="postform" method='POST'>
-        <input type="text" name="postContent" placeholder="Enter Post Content"><br>
-        <input type="text" name="empID" placeholder="Enter Employee Number"><br>
-        <input type="submit" value='Send for approval'>
+    <br>
+    <h3> Make a New Post! </h3>
+    <form action="/submitPost" id="postform" method="POST">
+        <div class="col">
+          <input type="text" class="form-control" name="postContent" placeholder="Enter Your Tweet!">
+        </div>
+        <div class="col">
+          <input type="number" min="1" class="form-control" name="empID" placeholder="Employee ID">
+        </div>
+
+        <br>
+        <button type="submit" value="Send for approval" class="btn btn-primary">Submit for Approval</button>
     </form>
 
-    <form action='/main_page'>
-        <input type='submit' value='Sign Out'>
+    <br>
+    <form action="/main_page" method="POST">
+        <button class="btn btn-info" value='Sign Out'>
+          Sign Out
+        </button>
     </form>
 </div>
 {% endblock %}
