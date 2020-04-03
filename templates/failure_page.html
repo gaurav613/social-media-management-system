@@ -1,0 +1,18 @@
+{% extends 'base.html'%} {% block head%} {% endblock %} {% block body %}
+<div align='center'>
+    <h1 align="center">{{message}}</h1>
+    <br>
+    <form action="/login_page" method="POST">
+        <input type='submit' value='Log In'>
+    </form>
+    <br>
+    <br>
+    <h2>Don't have an account? Sign up now!</h2>
+    <br>
+    <form action="/signup_page" method="POST">
+        <input type='submit' value='Sign Up'>
+    </form>
+
+</div>
+
+</form> {% endblock %}

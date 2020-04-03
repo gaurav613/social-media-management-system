@@ -1,4 +1,7 @@
 {% extends 'base.html'%} {% block head%}
+<form action='/main_page'>
+    <input type='submit' value='Sign Out'>
+</form>
 <h1 align="center">Welcome, {{user}}!</h1> {% endblock %} {% block body %}
 <div align="center">
     <h2>
@@ -17,16 +20,14 @@
         </tr>
         {%endfor%}
     </table>
-
+    <br><br>
     <!-- <textarea name="postContent" id="post" form="postform" placeholder="Enter your post content here"></textarea> -->
     <form action="/submitPost" id="postform" method='POST'>
-        <input type="text" name="postContent" placeholder="Enter Post Content"><br>
-        <input type="text" name="empID" placeholder="Enter Employee Number"><br>
+        <input type="text" name="postContent" placeholder="Enter Post Content" required><br><br>
+        <input type="text" name="empID" placeholder="Enter Employee Number" required><br><br>
         <input type="submit" value='Send for approval'>
     </form>
+    <br><br>
 
-    <form action='/main_page'>
-        <input type='submit' value='Sign Out'>
-    </form>
 </div>
 {% endblock %}
