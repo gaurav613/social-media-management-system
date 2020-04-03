@@ -2,15 +2,43 @@
 <h1 align="center">Sign Up Page</h1> {% endblock %} {% block body %}
 <div align="center">
     <form action="/signup" method="POST">
-        <input type="text" , name="username" placeholder="Username" required>
-        <br><br>
-        <input type="password" , name="password" placeholder="Password" required><br><br>
-        <input type="text" , name="email" placeholder="Email ID" required><br><br>
-        <input type="text" , name="employeeid" placeholder="Employee ID" required><br><br>
-        <input type="submit" , value="Sign Up"></form><br><br>
-    <form action='/main_page'>
-        <input type='submit' value='Go Back to main page'>
+        <form action="/signup" method="POST">
+            <div class="form-row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="inputEmail">Email address</label>
+                    <input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="form-group">
+                    <label for="userPassword">Password</label>
+                    <input type="password" name="password" class="form-control" id="userPassword">
+                  </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                  <input type="text" class="form-control" name="username" placeholder="Username">
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" name="employeeid" placeholder="EmployeeID">
+                </div>
+            </div>
+
+            <br>
+          <button type="submit" value="Sign Up" class="btn btn-primary">Sign Up</button>
+        </form>
+
+    <br>
+    <form action="/main_page" method="POST">
+        <button class="btn btn-info" value='Go Back to main page'>
+          Go Back to Main Page
+        </button>
     </form>
+
 </div>
 
 {% endblock %}
