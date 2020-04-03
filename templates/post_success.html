@@ -2,12 +2,16 @@
 <h1 align="center">Your post has been sent for approval!</h1> {% endblock %} {% block body %}
 <div align='center'>
     <br>
-    <form action='/userPage/{{username}}'>
-        <input type='submit' value='Go Back to user page'>
+    <form action="/userPage/{{username}}">
+        <button class="btn btn-primary" value='Go Back to user page'>
+          Go Back to user page
+        </button>
     </form>
-    <br><br>
-    <form action='/main_page'>
-        <input type='submit' value='Go Back to main page'>
+    <br>
+    <form action="/main_page">
+        <button class="btn btn-warning" value='Go Back to main page'>
+          Go Back to main page
+        </button>
     </form>
 
 </div>

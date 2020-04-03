@@ -1,11 +1,16 @@
 {% extends 'base.html'%} {% block head%}
+<form action="/main_page">
+    <button class="btn btn-info" value='Sign Out'>
+      Return to Main Page
+    </button>
+</form>
 <h1 align="center">Post History</h1> {% endblock %} {% block body %}
 <div align="center">
-    <table class="pure-table">
+    <table class="table table-striped">
         <tr>
-            <th>Post</th>
-            <th>Made By</th>
-            <th>Status</th>
+            <th scope="col">Post</th>
+            <th scope="col">Made By</th>
+            <th scope="col">Status</th>
         </tr>
         {% for post in posts %}
         <tr>
@@ -23,9 +28,6 @@
         {% endfor %}
     </table>
     <br><br>
-    <form action='/main_page'>
-        <input type='submit' value='Go Back to main page'>
-    </form>
 </div>
 
 {% endblock %}
