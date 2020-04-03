@@ -1,13 +1,16 @@
 {% extends 'base.html'%} {% block head%}
-<h1>Sign Up Page</h1> {% endblock %} {% block body %}
-<form action="/signup" method="POST">
-    <input type="text" , name="username" placeholder="Username">
-    <br>
-    <input type="text" , name="password" placeholder="Password"><br>
-    <input type="text" , name="email" placeholder="Email ID"><br>
-    <input type="text" , name="employeeid" placeholder="Employee ID">
-    <input type="submit" , value="Sign Up"></form>
-<form action='/main_page'>
-    <input type='submit' value='Go Back to main page'>
-</form>
+<h1 align="center">Sign Up Page</h1> {% endblock %} {% block body %}
+<div align="center">
+    <form action="/signup" method="POST">
+        <input type="text" , name="username" placeholder="Username">
+        <br>
+        <input type="text" , name="password" placeholder="Password"><br>
+        <input type="text" , name="email" placeholder="Email ID"><br>
+        <input type="text" , name="employeeid" placeholder="Employee ID">
+        <input type="submit" , value="Sign Up"></form>
+    <form action='/main_page'>
+        <input type='submit' value='Go Back to main page'>
+    </form>
+</div>
+
 {% endblock %}
