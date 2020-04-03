@@ -1,0 +1,16 @@
+{% extends 'base.html'%} {% block head%}
+
+<h1 align="center">Update page</h1>
+<!-- <textarea name="postContent" id="post" form="postform" placeholder="Enter your post content here"></textarea> -->
+<div align="center">
+    <form action="/updatePost/{{postID}}/{{user}}" id="postform" method='POST'>
+        <input type="text" name="updatedContent" placeholder="Enter updated post content"><br><br>
+        <input type="submit" value='Update'>
+    </form>
+    <br><br>
+    <form action='/userPage/{{user}}'>
+        <input type='submit' value='Sorry, go back'>
+    </form>
+
+</div>
+{% endblock %}

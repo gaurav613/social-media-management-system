@@ -11,12 +11,18 @@
         <tr>
             <th>Post</th>
             <th>Status</th>
+            <th>Update</th>
         </tr>
 
         {%for post in posts%}
         <tr>
             <td>{{post.Content}}</td>
             <td>{{post.Status}}</td>
+            {%if post.Status=='Draft'%}
+            <td><a href="/update/{{post.postID}}/{{user}}">Update</a></td>
+            {%else%}
+            <td>Approved</td>
+            {%endif%}
         </tr>
         {%endfor%}
     </table>

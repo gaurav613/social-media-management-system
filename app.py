@@ -81,7 +81,7 @@ def userPage(username):
     eid = str(emp['EmployeeID'])
     name = str(emp['Name'])
     isApprover = str(emp['isApprover'])
-    cursor.execute("SELECT Content,Status,EmployeeID FROM employees NATURAL JOIN liveposts NATURAL JOIN posts WHERE EmployeeID = "+eid+";")
+    cursor.execute("SELECT postID,Content,Status,EmployeeID FROM employees NATURAL JOIN liveposts NATURAL JOIN posts WHERE EmployeeID = "+eid+";")
     posts = cursor.fetchall()
 
     if(isApprover=='1'):
@@ -125,7 +125,6 @@ def submitPost():
 def approvePost(postID,user):
     cursor = mysql.connection.cursor()
     pID = str(postID)
-    
     cursor.execute("UPDATE posts SET approved=1,Status='Live' WHERE PostID="+pID+";")
     mysql.connection.commit()
 
@@ -134,6 +133,25 @@ def approvePost(postID,user):
     cursor.close()
     return render_template("approval_success.html",username=username)
 
+# redirect to update screen
+@app.route("/update/<int:postID>/<string:user>")
+def update(postID,user):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT username from employees Natural Join users WHERE Name='"+user+"';")
+    username = cursor.fetchone()['username']
+    cursor.close()
+    return render_template("update_post.html",postID=postID,user=username)
+
+# update a draft post
+@app.route("/updatePost/<int:postID>/<string:user>", methods =['GET','POST'])
+def updatePost(postID,user):
+    cursor = mysql.connection.cursor()
+    updated_content = str(request.form['updatedContent'])
+    cursor.execute("UPDATE posts SET Content= '"+updated_content+"' WHERE PostID="+str(postID)+";")
+    mysql.connection.commit()
+    cursor.close()
+
+    return redirect('/userPage/'+user)
 
 # redirect to main page
 @app.route('/main_page', methods =['GET','POST'])
