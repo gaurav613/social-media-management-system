@@ -6,4 +6,4 @@ This system facilitates:
 * Approval of posts by users with appropriate permissions
 
 Course Project for MSCI 444 - Information Systems & Analysis
-Presentation & Demo : https://youtu.be/wm-MK5rYDf4
+#### Presentation & Demo : https://youtu.be/wm-MK5rYDf4
