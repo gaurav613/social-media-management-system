@@ -4,12 +4,15 @@
 <!-- <textarea name="postContent" id="post" form="postform" placeholder="Enter your post content here"></textarea> -->
 <div align="center">
     <form action="/updatePost/{{postID}}/{{user}}" id="postform" method='POST'>
-        <input type="text" name="updatedContent" placeholder="Enter updated post content"><br><br>
-        <input type="submit" value='Update'>
+        <input type="text" class="form-control" name="updatedContent" placeholder="Updated Content"><br>
+        <button type="submit" value="Update" class="btn btn-primary">Update</button>
     </form>
     <br><br>
+
     <form action='/userPage/{{user}}'>
-        <input type='submit' value='Sorry, go back'>
+        <button class="btn btn-warning" value='Sorry, go back'>
+            Cancel Post Update
+        </button>
     </form>
 
 </div>
