@@ -25,7 +25,7 @@ def index():
 @app.route('/get_posts', methods =['GET','POST'])
 def show_posts():
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM posts")
+    cur.execute("SELECT * FROM posts NATURAL JOIN liveposts NATURAL JOIN employees")
     results = cur.fetchall()
     cur.close()
     return render_template('post_history.html',posts=results)
