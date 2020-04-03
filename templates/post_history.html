@@ -4,6 +4,7 @@
     <table class="pure-table">
         <tr>
             <th>Post</th>
+            <th>Made By</th>
             <th>Status</th>
         </tr>
         {% for post in posts %}
@@ -12,12 +13,16 @@
                 {{ post.Content }}
             </td>
             <td>
+                {{ post.Name }}
+            </td>
+            <td>
                 {{ post.Status }}
             </td>
 
         </tr>
         {% endfor %}
     </table>
+    <br><br>
     <form action='/main_page'>
         <input type='submit' value='Go Back to main page'>
     </form>

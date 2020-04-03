@@ -1,6 +1,10 @@
 {% extends 'base.html'%} {% block head%}
+<form action='/main_page'>
+    <input type='submit' value='Sign Out'>
+</form>
 <h1 align="center">Welcome, {{user}}!</h1>
 <h1 align="center">You have the permission to approve posts</h1> {% endblock %} {% block body %}
+
 <div align="center">
     <h2>
         Your posts
@@ -22,14 +26,14 @@
             {%endfor%}
         </table>
         {%endif%}
-
+        <br><br>
         <!-- <textarea name="postContent" id="post" form="postform" placeholder="Enter your post content here"></textarea> -->
         <form action="/submitPost" id="postform" method='POST'>
-            <input type="text" name="postContent" placeholder="Enter Post Content"><br>
-            <input type="text" name="empID" placeholder="Enter Employee Number"><br>
+            <input type="text" name="postContent" placeholder="Enter Post Content"><br><br>
+            <input type="text" name="empID" placeholder="Enter Employee Number"><br><br>
             <input type="submit" value='Send for approval'>
         </form>
-
+        <br><br>
         <h3>
             Posts that need your approval:
         </h3>
@@ -48,8 +52,6 @@
             </tr>
             {%endfor%}
         </table>
-        <form action='/main_page'>
-            <input type='submit' value='Sign Out'>
-        </form>
+
 </div>
 {% endblock %}

@@ -1,11 +1,14 @@
 {% extends 'base.html'%} {% block head%}
-<h1 align="center">Post successful</h1> {% endblock %} {% block body %}
+<h1 align="center">Your post has been sent for approval!</h1> {% endblock %} {% block body %}
 <div align='center'>
+    <br>
     <form action='/userPage/{{username}}'>
         <input type='submit' value='Go Back to user page'>
     </form>
+    <br><br>
     <form action='/main_page'>
         <input type='submit' value='Go Back to main page'>
+    </form>
 
 </div>
 
