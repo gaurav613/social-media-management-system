@@ -8,40 +8,45 @@
 <h1 align="center">Welcome, {{user}}!</h1> {% endblock %} {% block body %}
 <div align="center">
     <h2> Your Posts </h2>
+    {% if posts|length
+    < 1 %} <p>You haven't made any posts yet</p>
+        {%else%}
 
-    <table class="table table-striped">
-        <tr>
-            <th scope="col">Post</th>
-            <th scope="col">Status</th>
-            <th scope="col">Update</th>
-        </tr>
+        <table class="table table-striped">
+            <tr>
+                <th scope="col">Post</th>
+                <th scope="col">Status</th>
+                <th scope="col">Update</th>
+            </tr>
 
-        {%for post in posts%}
-        <tr>
-            <td>{{post.Content}}</td>
-            <td>{{post.Status}}</td>
-            {%if post.Status=='Draft'%}
-            <td><a href="/update/{{post.postID}}/{{user}}">Update</a></td>
-            {%else%}
-            <td>Approved</td>
-            {%endif%}
-        </tr>
-        {%endfor%}
-    </table>
-    <br>
-    <h3> Make a New Post! </h3>
-    <form action="/submitPost" id="postform" method="POST">
-        <div class="col">
-          <input type="text" class="form-control" name="postContent" placeholder="Enter Your Tweet!">
-        </div>
-        <div class="col">
-          <input type="number" min="1" class="form-control" name="empID" placeholder="Employee ID">
-        </div>
+            {%for post in posts%}
+            <tr>
+                <td>{{post.Content}}</td>
+                <td>{{post.Status}}</td>
+                {%if post.Status=='Draft'%}
+                <td><a href="/update/{{post.postID}}/{{user}}">Update</a></td>
+                {%else%}
+                <td>Approved</td>
+                {%endif%}
+            </tr>
+            {%endfor%}
+        </table>
 
+        {%endif%}
         <br>
-        <button type="submit" value="Send for approval" class="btn btn-primary">Submit for Approval</button>
-    </form>
-    <br><br>
+        <h3> Make a New Post! </h3>
+        <form action="/submitPost" id="postform" method="POST">
+            <div class="col">
+                <input type="text" class="form-control" name="postContent" placeholder="Enter Your Tweet!" required>
+            </div>
+            <div class="col">
+                <input type="number" min="1" class="form-control" name="empID" placeholder="Employee ID" required>
+            </div>
+
+            <br>
+            <button type="submit" value="Send for approval" class="btn btn-primary">Submit for Approval</button>
+        </form>
+        <br><br>
 
 </div>
 {% endblock %}
