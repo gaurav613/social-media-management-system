@@ -4,7 +4,7 @@
 <!-- <textarea name="postContent" id="post" form="postform" placeholder="Enter your post content here"></textarea> -->
 <div align="center">
     <form action="/updatePost/{{postID}}/{{user}}" id="postform" method='POST'>
-        <input type="text" class="form-control" name="updatedContent" placeholder="Updated Content"><br>
+        <input type="text" class="form-control" name="updatedContent" placeholder="Updated Content" required><br>
         <button type="submit" value="Update" class="btn btn-primary">Update</button>
     </form>
     <br><br>
